@@ -21,21 +21,15 @@ export default function Navbar() {
                         Home
                     </NavLink>
 
-                    <NavLink to="/dashboard" className="hover:text-indigo-600">
+                    <NavLink 
+                        to="/dashboard" 
+                        className={({ isActive }) =>
+                            isActive ? "text-indigo-600" : "hover:text-indigo-600"
+                        }
+                    >
                         Dashboard
                     </NavLink>
 
-                    <NavLink to="/hr" className="hover:text-indigo-600">
-                        HR
-                    </NavLink>
-
-                    <NavLink to="/tech" className="hover:text-indigo-600">
-                        Technical
-                    </NavLink>
-
-                    <NavLink to="/coding" className="hover:text-indigo-600">
-                        Coding
-                    </NavLink>
                 </div>
 
                 {/* Right Buttons */}
