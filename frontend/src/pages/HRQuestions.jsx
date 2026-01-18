@@ -13,7 +13,7 @@ export default function HRQuestions({ domain }) {
     }
 
     return (
-        <div className="px-2 sm:px-0">
+        <div>
             {/* Header */}
             <div className="mb-8">
                 <h1 className="text-3xl font-bold">HR Interview Questions</h1>

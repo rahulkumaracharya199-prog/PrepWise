@@ -12,7 +12,7 @@ export default function CodingQuestions({ domain }) {
     const filtered = codingQuestions.filter(q => q.domain === domain);
 
     return (
-        <div className="px-4 sm:px-6 lg:px-8 py-8">
+        <div>
             {/* Header */}
             <div className="mb-8">
                 <h1 className="text-2xl sm:text-3xl font-bold capitalize text-gray-800">
