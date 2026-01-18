@@ -13,15 +13,15 @@ export default function QuestionCard({ question, answer, level }) {
                 : "bg-red-100 text-red-700";
 
     return (
-        <div className="bg-white rounded-2xl shadow-sm border p-5 transition">
+        <div className="bg-white rounded-2xl shadow-sm border p-4 sm:p-5 transition">
 
             {/* Header */}
             <div
-                className="flex items-start justify-between cursor-pointer"
+                className="flex items-start justify-between gap-3 cursor-pointer"
                 onClick={() => setOpen(!open)}
             >
-                <div>
-                    <h3 className="text-lg font-semibold text-gray-800">
+                <div className="flex-1">
+                    <h3 className="text-base sm:text-lg font-semibold text-gray-800 leading-snug">
                         {question}
                     </h3>
 
@@ -32,22 +32,22 @@ export default function QuestionCard({ question, answer, level }) {
                     </span>
                 </div>
 
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2">
                     <button
                         onClick={(e) => {
                             e.stopPropagation();
                             setBookmarked(!bookmarked);
                         }}
-                        className={`p-2 rounded-lg ${bookmarked
+                        className={`p-2 sm:p-2.5 rounded-lg transition ${bookmarked
                                 ? "text-indigo-600 bg-indigo-50"
                                 : "text-gray-400 hover:text-indigo-600"
                             }`}
                     >
-                        <FiBookmark />
+                        <FiBookmark className="text-lg" />
                     </button>
 
                     <FiChevronDown
-                        className={`text-xl transition ${open ? "rotate-180" : ""
+                        className={`text-xl transition-transform duration-300 ${open ? "rotate-180" : ""
                             }`}
                     />
                 </div>
@@ -55,7 +55,7 @@ export default function QuestionCard({ question, answer, level }) {
 
             {/* Answer */}
             {open && (
-                <p className="mt-4 text-gray-600 leading-relaxed">
+                <p className="mt-4 text-sm sm:text-base text-gray-600 leading-relaxed">
                     {answer}
                 </p>
             )}
