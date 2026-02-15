@@ -1,64 +1,108 @@
 import { useState } from "react";
-import { FiChevronDown, FiBookmark } from "react-icons/fi";
+import { motion, AnimatePresence } from "framer-motion";
+import { FiChevronDown, FiBookmark, FiCheckCircle, FiClock, FiLayers } from "react-icons/fi";
 
 export default function QuestionCard({ question, answer, level }) {
     const [open, setOpen] = useState(false);
     const [bookmarked, setBookmarked] = useState(false);
+    const [mastered, setMastered] = useState(false);
 
-    const levelColor =
-        level === "Easy"
-            ? "bg-green-100 text-green-700"
-            : level === "Medium"
-                ? "bg-yellow-100 text-yellow-700"
-                : "bg-red-100 text-red-700";
+    const config = {
+        Easy: { color: "text-emerald-600", bg: "bg-emerald-50", border: "border-emerald-100" },
+        Medium: { color: "text-amber-600", bg: "bg-amber-50", border: "border-amber-100" },
+        Hard: { color: "text-rose-600", bg: "bg-rose-50", border: "border-rose-100" },
+    };
+
+    const theme = config[level] || config.Medium;
 
     return (
-        <div className="bg-white rounded-2xl shadow-sm border p-4 sm:p-5 transition">
-
-            {/* Header */}
-            <div
-                className="flex items-start justify-between gap-3 cursor-pointer"
+        <motion.div 
+            layout
+            className={`group bg-white rounded-[2rem] border-2 transition-all duration-300 ${
+                open ? "border-indigo-500 shadow-[0_20px_40px_rgba(79,70,229,0.08)]" : "border-gray-100 shadow-sm hover:border-gray-200"
+            }`}
+        >
+            {/* Clickable Area */}
+            <div 
+                className="p-6 cursor-pointer" 
                 onClick={() => setOpen(!open)}
             >
-                <div className="flex-1">
-                    <h3 className="text-base sm:text-lg font-semibold text-gray-800 leading-snug">
-                        {question}
-                    </h3>
+                <div className="flex items-start justify-between gap-6">
+                    <div className="flex-1">
+                        {/* Question Meta */}
+                        <div className="flex items-center gap-3 mb-3">
+                            <span className={`px-3 py-1 text-[10px] font-black uppercase tracking-widest rounded-lg border ${theme.bg} ${theme.color} ${theme.border}`}>
+                                {level}
+                            </span>
+                            <div className="flex items-center gap-1.5 text-gray-400 text-[11px] font-bold">
+                                <FiClock /> 2 min read
+                            </div>
+                        </div>
 
-                    <span
-                        className={`inline-block mt-2 px-3 py-1 text-xs font-semibold rounded-full ${levelColor}`}
-                    >
-                        {level}
-                    </span>
-                </div>
+                        <h3 className={`text-lg font-black leading-tight transition-colors ${open ? "text-indigo-600" : "text-gray-900"}`}>
+                            {question}
+                        </h3>
+                    </div>
 
-                <div className="flex items-center gap-2">
-                    <button
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            setBookmarked(!bookmarked);
-                        }}
-                        className={`p-2 sm:p-2.5 rounded-lg transition ${bookmarked
-                                ? "text-indigo-600 bg-indigo-50"
-                                : "text-gray-400 hover:text-indigo-600"
+                    {/* Action Buttons */}
+                    <div className="flex items-center gap-2">
+                        <button
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                setBookmarked(!bookmarked);
+                            }}
+                            className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all ${
+                                bookmarked ? "bg-indigo-600 text-white shadow-lg shadow-indigo-100" : "bg-gray-50 text-gray-400 hover:text-indigo-600"
                             }`}
-                    >
-                        <FiBookmark className="text-lg" />
-                    </button>
-
-                    <FiChevronDown
-                        className={`text-xl transition-transform duration-300 ${open ? "rotate-180" : ""
-                            }`}
-                    />
+                        >
+                            <FiBookmark className={bookmarked ? "fill-current" : ""} />
+                        </button>
+                        
+                        <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-transform duration-300 ${open ? "rotate-180 bg-indigo-50 text-indigo-600" : "bg-gray-50 text-gray-400"}`}>
+                            <FiChevronDown size={20} />
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            {/* Answer */}
-            {open && (
-                <p className="mt-4 text-sm sm:text-base text-gray-600 leading-relaxed">
-                    {answer}
-                </p>
-            )}
-        </div>
+            {/* Expandable Answer Section */}
+            <AnimatePresence>
+                {open && (
+                    <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                        className="overflow-hidden"
+                    >
+                        <div className="px-6 pb-8 pt-2 border-t border-gray-50">
+                            <div className="bg-gray-50/50 p-6 rounded-[1.5rem] border border-gray-100">
+                                <div className="flex items-center gap-2 text-indigo-600 mb-4">
+                                    <FiLayers className="text-sm" />
+                                    <span className="text-[10px] font-black uppercase tracking-widest">Suggested Answer</span>
+                                </div>
+                                <p className="text-gray-600 leading-relaxed font-medium">
+                                    {answer}
+                                </p>
+                                
+                                {/* Mastery Toggle */}
+                                <div className="mt-8 flex items-center justify-between pt-6 border-t border-gray-100">
+                                    <p className="text-xs text-gray-400 font-bold italic">Did you find this helpful?</p>
+                                    <button 
+                                        onClick={() => setMastered(!mastered)}
+                                        className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-black transition-all ${
+                                            mastered ? "bg-emerald-500 text-white" : "bg-white border border-gray-200 text-gray-500 hover:border-emerald-500 hover:text-emerald-500"
+                                        }`}
+                                    >
+                                        <FiCheckCircle />
+                                        {mastered ? "Mastered" : "Mark as Mastered"}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </motion.div>
     );
 }

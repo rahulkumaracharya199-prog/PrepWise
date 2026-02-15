@@ -1,56 +1,128 @@
 import { useState } from "react";
 import { Navigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import { FiCode, FiCopy, FiCheck, FiExternalLink, FiTerminal } from "react-icons/fi";
 import codingQuestions from "../data/codingQuestions";
 
 export default function CodingQuestions({ domain }) {
     const [openId, setOpenId] = useState(null);
+    const [copiedId, setCopiedId] = useState(null);
 
-    if (!domain) {
-        return <Navigate to="/dashboard" replace />;
-    }
+    if (!domain) return <Navigate to="/dashboard" replace />;
 
     const filtered = codingQuestions.filter(q => q.domain === domain);
 
-    return (
-        <div>
-            {/* Header */}
-            <div className="mb-8">
-                <h1 className="text-2xl sm:text-3xl font-bold capitalize text-gray-800">
-                    {domain} Coding Questions
-                </h1>
-                <p className="text-gray-500 mt-1 text-sm sm:text-base">
-                    Practice coding problems and improve your skills
-                </p>
-            </div>
+    const handleCopy = (id, code) => {
+        navigator.clipboard.writeText(code);
+        setCopiedId(id);
+        setTimeout(() => setCopiedId(null), 2000);
+    };
 
-            {/* Questions List */}
+    return (
+        <div className="max-w-5xl mx-auto">
+            {/* --- Header Section --- */}
+            <header className="mb-12">
+                <div className="flex items-center gap-3 mb-4">
+                    <div className="w-12 h-12 bg-indigo-600 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-indigo-200">
+                        <FiTerminal size={24} />
+                    </div>
+                    <div>
+                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-indigo-600">Practice Lab</span>
+                        <h1 className="text-3xl font-black text-gray-900 capitalize tracking-tight">
+                            {domain} <span className="text-indigo-600">Challenges</span>
+                        </h1>
+                    </div>
+                </div>
+                <p className="text-gray-500 font-medium">
+                    Sharpen your logic with industry-standard coding patterns.
+                </p>
+            </header>
+
+            {/* --- Questions List --- */}
             {filtered.length === 0 ? (
-                <p className="text-gray-500">No coding questions available yet.</p>
+                <div className="py-20 text-center bg-white rounded-[2rem] border-2 border-dashed border-gray-100">
+                    <p className="text-gray-400 font-bold text-lg">No challenges found for this domain yet.</p>
+                </div>
             ) : (
-                <div className="space-y-4">
+                <div className="space-y-6">
                     {filtered.map((q, index) => (
-                        <div
+                        <motion.div
+                            layout
                             key={q.id}
-                            className="bg-white border rounded-2xl shadow-sm p-5 transition hover:shadow-md"
+                            className={`bg-white rounded-[2rem] border-2 transition-all duration-300 ${
+                                openId === q.id ? "border-indigo-500 shadow-xl shadow-indigo-500/5" : "border-gray-100 hover:border-gray-200"
+                            }`}
                         >
                             {/* Question Header */}
                             <button
                                 onClick={() => setOpenId(openId === q.id ? null : q.id)}
-                                className="w-full flex justify-between items-center text-left focus:outline-none"
+                                className="w-full p-6 sm:p-8 flex justify-between items-center text-left"
                             >
-                                <p className="font-semibold text-lg text-gray-800">
-                                    {index + 1}. {q.question}
-                                </p>
+                                <div className="flex items-center gap-4">
+                                    <span className="w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center text-xs font-black text-gray-400 border border-gray-100">
+                                        {index + 1}
+                                    </span>
+                                    <h3 className={`text-lg font-black tracking-tight transition-colors ${openId === q.id ? "text-indigo-600" : "text-gray-900"}`}>
+                                        {q.question}
+                                    </h3>
+                                </div>
                                 <DifficultyBadge level={q.difficulty} />
                             </button>
 
-                            {/* Answer */}
-                            {openId === q.id && (
-                                <pre className="bg-gray-100 p-4 rounded-lg mt-4 text-sm sm:text-base overflow-x-auto whitespace-pre-wrap">
-                                    {q.answer}
-                                </pre>
-                            )}
-                        </div>
+                            {/* Answer Section (The "Editor") */}
+                            <AnimatePresence>
+                                {openId === q.id && (
+                                    <motion.div
+                                        initial={{ height: 0, opacity: 0 }}
+                                        animate={{ height: "auto", opacity: 1 }}
+                                        exit={{ height: 0, opacity: 0 }}
+                                        className="overflow-hidden"
+                                    >
+                                        <div className="px-6 pb-8 sm:px-8 sm:pb-10">
+                                            <div className="bg-[#1E1E1E] rounded-2xl overflow-hidden shadow-2xl">
+                                                {/* Editor Top Bar */}
+                                                <div className="bg-[#2D2D2D] px-4 py-3 flex items-center justify-between border-b border-white/5">
+                                                    <div className="flex items-center gap-2">
+                                                        <div className="flex gap-1.5">
+                                                            <div className="w-2.5 h-2.5 rounded-full bg-[#FF5F56]" />
+                                                            <div className="w-2.5 h-2.5 rounded-full bg-[#FFBD2E]" />
+                                                            <div className="w-2.5 h-2.5 rounded-full bg-[#27C93F]" />
+                                                        </div>
+                                                        <span className="ml-4 text-[10px] font-bold text-gray-500 uppercase tracking-widest flex items-center gap-1">
+                                                            <FiCode /> solution.js
+                                                        </span>
+                                                    </div>
+                                                    <button 
+                                                        onClick={() => handleCopy(q.id, q.answer)}
+                                                        className="text-gray-400 hover:text-white transition-colors flex items-center gap-2 text-xs font-bold"
+                                                    >
+                                                        {copiedId === q.id ? <><FiCheck className="text-green-400" /> Copied</> : <><FiCopy /> Copy</>}
+                                                    </button>
+                                                </div>
+                                                
+                                                {/* Code Content */}
+                                                <pre className="p-6 text-sm sm:text-base overflow-x-auto font-mono leading-relaxed text-indigo-300 custom-scrollbar">
+                                                    <code>{q.answer}</code>
+                                                </pre>
+                                            </div>
+
+                                            {/* External Resources / Tip */}
+                                            <div className="mt-6 p-4 rounded-xl bg-indigo-50 border border-indigo-100 flex items-center justify-between">
+                                                <div className="flex items-center gap-3">
+                                                    <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center text-indigo-600 shadow-sm">
+                                                        <FiExternalLink />
+                                                    </div>
+                                                    <p className="text-xs font-bold text-indigo-900">Need more practice on this pattern?</p>
+                                                </div>
+                                                <button className="text-[10px] font-black uppercase tracking-widest text-indigo-600 hover:underline">
+                                                    View Docs
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        </motion.div>
                     ))}
                 </div>
             )}
@@ -58,19 +130,16 @@ export default function CodingQuestions({ domain }) {
     );
 }
 
-/* 🔹 Difficulty Badge */
 function DifficultyBadge({ level }) {
-    const colors = {
-        easy: "bg-green-100 text-green-700",
-        medium: "bg-yellow-100 text-yellow-700",
-        hard: "bg-red-100 text-red-700",
+    const levels = {
+        easy: "text-emerald-600 bg-emerald-50 border-emerald-100",
+        medium: "text-amber-600 bg-amber-50 border-amber-100",
+        hard: "text-rose-600 bg-rose-50 border-rose-100",
     };
 
     return (
-        <span
-            className={`text-xs sm:text-sm font-semibold px-3 py-1 rounded-full ${colors[level]}`}
-        >
-            {level.toUpperCase()}
+        <span className={`text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-lg border shadow-sm ${levels[level.toLowerCase()]}`}>
+            {level}
         </span>
     );
 }

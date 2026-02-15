@@ -1,208 +1,147 @@
 const technicalQuestions = [
+    // --- FRONTEND ---
+    { id: 1, domain: "frontend", topic: "Layout", question: "What is responsive design?", answer: "A design approach that uses fluid grids, flexible images, and CSS media queries to adapt the UI to different screen sizes.", difficulty: "easy" },
+    { id: 2, domain: "frontend", topic: "Security", question: "What is CORS?", answer: "Cross-Origin Resource Sharing is a security mechanism that uses HTTP headers to tell browsers whether to allow a web application running at one origin to access resources from a different origin.", difficulty: "medium" },
+    { id: 25, domain: "frontend", topic: "Performance", question: "What is 'Critical Rendering Path'?", answer: "The sequence of steps the browser goes through to convert HTML, CSS, and JS into pixels on the screen (DOM -> CSSOM -> Render Tree -> Layout -> Paint).", difficulty: "hard" },
+    { id: 26, domain: "frontend", topic: "Optimization", question: "What is Lazy Loading?", answer: "A strategy to identify resources as non-blocking and load them only when needed (e.g., images only loading when they enter the viewport).", difficulty: "medium" },
+    { id: 27, domain: "frontend", topic: "Web Vitals", question: "What is Largest Contentful Paint (LCP)?", answer: "A Core Web Vital that measures the time it takes for the largest image or text block to become visible within the viewport.", difficulty: "medium" },
+    { id: 28, domain: "frontend", topic: "Accessibility", question: "What is ARIA?", answer: "Accessible Rich Internet Applications is a set of attributes that help make web content more accessible to people with disabilities, especially those using screen readers.", difficulty: "easy" },
+    { id: 29, domain: "frontend", topic: "Browser", question: "Difference between LocalStorage and SessionStorage?", answer: "LocalStorage data persists even after the browser is closed; SessionStorage data is cleared when the page session ends (tab is closed).", difficulty: "easy" },
+    { id: 30, domain: "frontend", topic: "Security", question: "What is XSS and how to prevent it?", answer: "Cross-Site Scripting involves injecting malicious scripts into websites. Prevention includes sanitizing user input and using Content Security Policy (CSP).", difficulty: "hard" },
+    { id: 31, domain: "frontend", topic: "Build Tools", question: "What is Tree Shaking?", answer: "A term used in JavaScript contexts for dead-code elimination. It relies on the static structure of ES2015 module syntax (import/export).", difficulty: "medium" },
+    { id: 32, domain: "frontend", topic: "Protocol", question: "How does HTTP/2 differ from HTTP/1.1?", answer: "HTTP/2 is binary instead of textual and supports multiplexing, allowing multiple requests and responses to be sent simultaneously over a single connection.", difficulty: "hard" },
 
-    // FRONTEND
+    // --- REACT ---
+    { id: 3, domain: "react", topic: "Hooks", question: "What are hooks?", answer: "Functions that let you 'hook into' React state and lifecycle features from function components without writing a class.", difficulty: "easy" },
+    { id: 4, domain: "react", topic: "Hooks", question: "What is useEffect?", answer: "A hook for handling side effects like data fetching, subscriptions, or manual DOM mutations in functional components.", difficulty: "medium" },
+    { id: 33, domain: "react", topic: "Core", question: "What is the Virtual DOM?", answer: "A lightweight copy of the real DOM. React uses it to calculate the most efficient way to update the browser's DOM through a process called 'diffing'.", difficulty: "medium" },
+    { id: 34, domain: "react", topic: "Core", question: "What are 'Keys' in React?", answer: "Unique identifiers used to help React identify which items in a list have changed, been added, or been removed for efficient re-rendering.", difficulty: "easy" },
+    { id: 35, domain: "react", topic: "Hooks", question: "Difference between useMemo and useCallback?", answer: "useMemo returns a memoized value; useCallback returns a memoized function. Both are used to optimize performance by preventing unnecessary re-calculations or re-renders.", difficulty: "hard" },
+    { id: 36, domain: "react", topic: "State", question: "What is Prop Drilling?", answer: "The process of passing data through multiple layers of components just to reach a deeply nested component. Can be solved via Context API or Redux.", difficulty: "easy" },
+    { id: 37, domain: "react", topic: "Core", question: "What are Higher-Order Components (HOC)?", answer: "A pattern where a function takes a component and returns a new component, adding additional logic or props to it.", difficulty: "medium" },
+    { id: 38, domain: "react", topic: "Context", question: "What is the Context API?", answer: "A way for a React app to effectively produce global variables that can be passed around, avoiding prop drilling.", difficulty: "medium" },
+    { id: 39, domain: "react", topic: "Performance", question: "What is React.memo?", answer: "A higher-order component that memoizes the rendered output of a component to prevent unnecessary re-renders if the props haven't changed.", difficulty: "medium" },
+    { id: 40, domain: "react", topic: "Advanced", question: "What are Portals in React?", answer: "A way to render children into a DOM node that exists outside the hierarchy of the parent component (common for modals or tooltips).", difficulty: "hard" },
 
-    {
-        id: 1,
-        domain: "frontend",
-        question: "What is responsive design?",
-        answer: "Design approach that adapts UI to different screen sizes.",
-        difficulty: "easy"
-    },
-    {
-        id: 2,
-        domain: "frontend",
-        question: "What is CORS?",
-        answer: "A security feature that restricts cross-origin HTTP requests.",
-        difficulty: "medium"
-    },
+    // --- PYTHON ---
+    { id: 5, domain: "python", topic: "Basics", question: "What is PEP 8?", answer: "The official Style Guide for Python Code, providing guidelines on how to format code for maximum readability.", difficulty: "easy" },
+    { id: 6, domain: "python", topic: "Architecture", question: "What is GIL?", answer: "The Global Interpreter Lock is a mutex that allows only one thread to hold the control of the Python interpreter at a time, impacting multi-threaded CPU-bound programs.", difficulty: "hard" },
+    { id: 41, domain: "python", topic: "Data Structures", question: "Difference between List and Tuple?", answer: "Lists are mutable (can be changed) and use square brackets []. Tuples are immutable (cannot be changed) and use parentheses ().", difficulty: "easy" },
+    { id: 42, domain: "python", topic: "Memory", question: "How is memory managed in Python?", answer: "Via a private heap space and an automatic garbage collector that uses reference counting and a cycle-detecting algorithm.", difficulty: "hard" },
+    { id: 43, domain: "python", topic: "Advanced", question: "What are Decorators?", answer: "Functions that modify the behavior of another function or class without permanently modifying its source code.", difficulty: "medium" },
+    { id: 44, domain: "python", topic: "Logic", question: "What is a Generator?", answer: "A function that returns an iterator using the 'yield' keyword, allowing for lazy evaluation of large datasets to save memory.", difficulty: "medium" },
+    { id: 45, domain: "python", topic: "OOP", question: "What is '__init__'?", answer: "The constructor method in Python classes, automatically called to initialize a new object's attributes.", difficulty: "easy" },
+    { id: 46, domain: "python", topic: "Data Structures", question: "What is a Dictionary Comprehension?", answer: "A concise way to create dictionaries from iterables, similar to list comprehensions but using key-value pairs.", difficulty: "medium" },
+    { id: 47, domain: "python", topic: "Modules", question: "Difference between 'deep copy' and 'shallow copy'?", answer: "A shallow copy creates a new object but references the original elements; a deep copy creates a new object and recursively copies all nested elements.", difficulty: "medium" },
+    { id: 48, domain: "python", topic: "Advanced", question: "What are *args and **kwargs?", answer: "*args allows a function to accept any number of positional arguments; **kwargs allows any number of keyword arguments.", difficulty: "medium" },
 
-    // REACT
+    // --- JAVA ---
+    { id: 7, domain: "java", topic: "OOP", question: "What is OOP?", answer: "Object-Oriented Programming is a paradigm based on 'objects' which contain data (fields) and code (methods). Core pillars: Abstraction, Encapsulation, Inheritance, Polymorphism.", difficulty: "easy" },
+    { id: 8, domain: "java", topic: "Memory", question: "What is garbage collection?", answer: "The process by which Java programs perform automatic memory management, deleting objects that are no longer reachable in the heap.", difficulty: "medium" },
+    { id: 49, domain: "java", topic: "Core", question: "Difference between JDK, JRE, and JVM?", answer: "JVM runs the code; JRE is the environment (JVM + libraries); JDK is the full development kit (JRE + compiler/debugger).", difficulty: "easy" },
+    { id: 50, domain: "java", topic: "OOP", question: "What is Polymorphism?", answer: "The ability of an object to take on many forms. Common examples include Method Overloading (compile-time) and Method Overriding (runtime).", difficulty: "medium" },
+    { id: 51, domain: "java", topic: "OOP", question: "Difference between Interface and Abstract Class?", answer: "An interface defines a contract (behavior); an abstract class can provide a partial implementation and hold state.", difficulty: "medium" },
+    { id: 52, domain: "java", topic: "Memory", question: "What is the 'final' keyword?", answer: "Used to restrict the user: final variables cannot be changed, final methods cannot be overridden, and final classes cannot be inherited.", difficulty: "easy" },
+    { id: 53, domain: "java", topic: "Collections", question: "Difference between HashMap and HashTable?", answer: "HashMap is non-synchronized and allows one null key; HashTable is synchronized (thread-safe) and does not allow nulls.", difficulty: "medium" },
+    { id: 54, domain: "java", topic: "Exceptions", question: "Checked vs Unchecked Exceptions?", answer: "Checked exceptions are checked at compile-time (e.g., IOException); Unchecked exceptions happen at runtime (e.g., NullPointerException).", difficulty: "medium" },
+    { id: 55, domain: "java", topic: "Advanced", question: "What is the Reflection API?", answer: "An API that allows inspecting or modifying the runtime behavior of applications, such as examining classes, fields, and methods at runtime.", difficulty: "hard" },
+    { id: 56, domain: "java", topic: "Concurrency", question: "What is the Volatile keyword?", answer: "Ensures that a variable's value is always read from and written to main memory, rather than being cached in a thread's CPU cache.", difficulty: "hard" },
 
-    {
-        id: 3,
-        domain: "react",
-        question: "What are hooks?",
-        answer: "Hooks let you use state and lifecycle features in functional components.",
-        difficulty: "easy"
-    },
-    {
-        id: 4,
-        domain: "react",
-        question: "What is useEffect?",
-        answer: "Hook used to handle side effects in components.",
-        difficulty: "medium"
-    },
+    // --- BACKEND ---
+    { id: 9, domain: "backend", topic: "API", question: "What is REST API?", answer: "Representational State Transfer is an architectural style that uses standard HTTP methods (GET, POST, PUT, DELETE) to manage resources via URLs.", difficulty: "easy" },
+    { id: 10, domain: "backend", topic: "Security", question: "What is authentication vs authorization?", answer: "Authentication is confirming who a user is (Login); Authorization is determining what they are allowed to do (Permissions).", difficulty: "medium" },
+    { id: 57, domain: "backend", topic: "Architecture", question: "What is Microservices Architecture?", answer: "An approach where a large application is built as a suite of small, independent services that communicate over lightweight protocols like HTTP.", difficulty: "medium" },
+    { id: 58, domain: "backend", topic: "Database", question: "SQL vs NoSQL?", answer: "SQL databases are relational and structured; NoSQL databases are non-relational, distributed, and flexible in schema (Document, Key-Value, Graph).", difficulty: "easy" },
+    { id: 59, domain: "backend", topic: "Communication", question: "What is gRPC?", answer: "A high-performance Remote Procedure Call (RPC) framework developed by Google that uses Protocol Buffers for serialization instead of JSON.", difficulty: "hard" },
+    { id: 60, domain: "backend", topic: "Caching", question: "What is Redis?", answer: "An in-memory data structure store used as a database, cache, and message broker to improve application performance.", difficulty: "medium" },
+    { id: 61, domain: "backend", topic: "Scalability", question: "What is Horizontal vs Vertical Scaling?", answer: "Vertical scaling means adding more power (CPU/RAM) to one machine; Horizontal scaling means adding more machines to the pool.", difficulty: "easy" },
+    { id: 62, domain: "backend", topic: "Security", question: "What is a JWT (JSON Web Token)?", answer: "A compact, URL-safe means of representing claims to be transferred between two parties, commonly used for stateless authentication.", difficulty: "medium" },
+    { id: 63, domain: "backend", topic: "Infrastructure", question: "What is Docker?", answer: "A platform that uses containerization to package an application and its dependencies into a single unit that can run consistently on any environment.", difficulty: "medium" },
+    { id: 64, domain: "backend", topic: "Patterns", question: "What is Message Queue (RabbitMQ/Kafka)?", answer: "A form of asynchronous service-to-service communication used to decouple heavy processing tasks from the main request flow.", difficulty: "hard" },
 
-    // PYTHON
+    // --- NODE ---
+    { id: 11, domain: "node", topic: "Core", question: "What is Node.js?", answer: "An open-source, cross-platform JavaScript runtime environment that executes JS code outside a web browser, built on Chrome's V8 engine.", difficulty: "easy" },
+    { id: 12, domain: "node", topic: "Architecture", question: "What is the event loop?", answer: "The mechanism that allows Node.js to perform non-blocking I/O operations by offloading tasks to the system kernel whenever possible.", difficulty: "medium" },
+    { id: 65, domain: "node", topic: "Core", question: "What is 'Non-blocking I/O'?", answer: "A property where a thread doesn't wait for an I/O operation (like reading a file) to complete, but instead moves to the next task and handles the result via a callback.", difficulty: "medium" },
+    { id: 66, domain: "node", topic: "Advanced", question: "What are Streams in Node?", answer: "Objects that let you read data from a source or write data to a destination in a continuous fashion, which is memory efficient for large files.", difficulty: "hard" },
+    { id: 67, domain: "node", topic: "Core", question: "What is the purpose of 'package.json'?", answer: "A manifest file that contains metadata about the project, scripts, and the list of dependencies required for the app to run.", difficulty: "easy" },
+    { id: 68, domain: "node", topic: "Module", question: "Require vs Import?", answer: "'require' is the CommonJS way of loading modules; 'import' is the ES6 module syntax. Node.js now supports both, but they handle loading differently.", difficulty: "medium" },
+    { id: 69, domain: "node", topic: "Advanced", question: "What is 'Buffer' in Node?", answer: "A global class used to handle raw binary data, providing a way to interact with octet streams in TCP streams or file system operations.", difficulty: "medium" },
+    { id: 70, domain: "node", topic: "Advanced", question: "What is 'process.nextTick()'?", answer: "A function used to schedule a callback to be invoked in the next iteration of the event loop, immediately after the current operation completes.", difficulty: "hard" },
+    { id: 71, domain: "node", topic: "Framework", question: "What is Middleware in Express?", answer: "Functions that have access to the request and response objects and the 'next' middleware function in the app's request-response cycle.", difficulty: "medium" },
+    { id: 72, domain: "node", topic: "Security", question: "How to handle sensitive info in Node?", answer: "Use environment variables (process.env) and tools like 'dotenv' to keep secrets out of the source code.", difficulty: "easy" },
 
-    {
-        id: 5,
-        domain: "python",
-        question: "What is PEP 8?",
-        answer: "Python’s official style guide.",
-        difficulty: "easy"
-    },
-    {
-        id: 6,
-        domain: "python",
-        question: "What is GIL?",
-        answer: "Global Interpreter Lock that allows only one thread to execute at a time.",
-        difficulty: "hard"
-    },
+    // --- JAVASCRIPT ---
+    { id: 13, domain: "javascript", topic: "Scope", question: "What is hoisting?", answer: "A behavior where variable and function declarations are moved to the top of their containing scope during the compilation phase.", difficulty: "medium" },
+    { id: 14, domain: "javascript", topic: "Async", question: "What is async/await?", answer: "Syntactic sugar built on top of Promises that allows you to write asynchronous code that looks and behaves like synchronous code.", difficulty: "easy" },
+    { id: 73, domain: "javascript", topic: "Core", question: "What is a Closure?", answer: "A function that 'remembers' the environment in which it was created, allowing it to access variables from an outer scope even after that scope has closed.", difficulty: "hard" },
+    { id: 74, domain: "javascript", topic: "Core", question: "What is the 'this' keyword?", answer: "Refers to the object that the function is a property of, or the object that is currently executing the code. Its value changes based on call-site.", difficulty: "medium" },
+    { id: 75, domain: "javascript", topic: "Prototype", question: "What is Prototypal Inheritance?", answer: "A feature where objects can inherit properties and methods from other objects via a prototype chain.", difficulty: "hard" },
+    { id: 76, domain: "javascript", topic: "Data Types", question: "Difference between '==' and '===’?", answer: "'==' checks for value equality with type coercion; '===' checks for strict equality (both value and type).", difficulty: "easy" },
+    { id: 77, domain: "javascript", topic: "Async", question: "What is a Promise?", answer: "An object representing the eventual completion (or failure) of an asynchronous operation and its resulting value.", difficulty: "medium" },
+    { id: 78, domain: "javascript", topic: "Core", question: "What is the 'Event Delegation'?", answer: "A technique where you attach a single event listener to a parent element to manage events for all of its children using event bubbling.", difficulty: "medium" },
+    { id: 79, domain: "javascript", topic: "ES6", question: "What is Arrow Function?", answer: "A shorter syntax for writing functions that doesn't have its own 'this', 'arguments', or 'super'.", difficulty: "easy" },
+    { id: 80, domain: "javascript", topic: "Functions", question: "What is an IIFE?", answer: "An Immediately Invoked Function Expression is a JS function that runs as soon as it is defined, often used to create a private scope.", difficulty: "medium" },
 
-    // JAVA
+    // --- HTML ---
+    { id: 15, domain: "html", topic: "Semantics", question: "What are semantic tags?", answer: "Elements like <header>, <article>, and <footer> that clearly describe their meaning to both the browser and the developer.", difficulty: "easy" },
+    { id: 16, domain: "html", topic: "Layout", question: "Difference between div and span?", answer: "<div> is a block-level element (starts on a new line); <span> is an inline element (stays on the same line).", difficulty: "easy" },
+    { id: 81, domain: "html", topic: "SEO", question: "What is the purpose of the 'alt' attribute?", answer: "Provides alternative text for images if they fail to load and is crucial for accessibility (screen readers) and SEO.", difficulty: "easy" },
+    { id: 82, domain: "html", topic: "SEO", question: "What are Meta Tags?", answer: "Tags placed in the <head> that provide metadata about the HTML document, such as description, keywords, and author.", difficulty: "easy" },
+    { id: 83, domain: "html", topic: "Optimization", question: "Difference between 'async' and 'defer'?", answer: "Both load scripts without blocking; 'async' executes the script immediately after loading, while 'defer' waits until the HTML is fully parsed.", difficulty: "medium" },
+    { id: 84, domain: "html", topic: "Advanced", question: "What is SVG?", answer: "Scalable Vector Graphics is an XML-based format for vector images that can be scaled to any size without losing quality.", difficulty: "medium" },
+    { id: 85, domain: "html", topic: "Forms", question: "What is the 'action' attribute in forms?", answer: "Specifies the URL where the form data should be sent for processing upon submission.", difficulty: "easy" },
+    { id: 86, domain: "html", topic: "Storage", question: "What is an HTML5 manifest file?", answer: "A file used to create offline web applications by telling the browser which files to cache.", difficulty: "hard" },
+    { id: 87, domain: "html", topic: "Semantics", question: "Why use <section> vs <article>?", answer: "<article> is for self-contained content (blog post); <section> is for a thematic grouping of content within a document.", difficulty: "medium" },
+    { id: 88, domain: "html", topic: "SEO", question: "What is a Canonical URL?", answer: "A way to tell search engines which version of a URL is the 'master' copy, preventing duplicate content issues.", difficulty: "medium" },
 
-    {
-        id: 7,
-        domain: "java",
-        question: "What is OOP?",
-        answer: "Programming paradigm based on objects and classes.",
-        difficulty: "easy"
-    },
-    {
-        id: 8,
-        domain: "java",
-        question: "What is garbage collection?",
-        answer: "Automatic memory management process in Java.",
-        difficulty: "medium"
-    },
+    // --- CSS ---
+    { id: 17, domain: "css", topic: "Layout", question: "What is Flexbox?", answer: "A one-dimensional layout method for arranging items in rows or columns, making it easy to align items and distribute space.", difficulty: "easy" },
+    { id: 18, domain: "css", topic: "Selectors", question: "Difference between class and id?", answer: "Classes (.) are reusable and can apply to many elements; IDs (#) are unique and should only apply to one element per page.", difficulty: "easy" },
+    { id: 89, domain: "css", topic: "Core", question: "What is the CSS Box Model?", answer: "A container that wraps every HTML element, consisting of: Content, Padding, Border, and Margin.", difficulty: "easy" },
+    { id: 90, domain: "css", topic: "Layout", question: "Difference between Grid and Flexbox?", answer: "Grid is two-dimensional (rows AND columns); Flexbox is one-dimensional (rows OR columns).", difficulty: "medium" },
+    { id: 91, domain: "css", topic: "Advanced", question: "What is CSS Specificity?", answer: "A set of rules browsers use to determine which CSS property values are most relevant to an element and should be applied.", difficulty: "hard" },
+    { id: 92, domain: "css", topic: "Advanced", question: "What are CSS Pseudo-classes?", answer: "Keywords added to selectors that specify a special state of the elements (e.g., :hover, :focus, :nth-child).", difficulty: "medium" },
+    { id: 93, domain: "css", topic: "Responsive", question: "What are Media Queries?", answer: "A technique used to apply CSS rules only when certain conditions are met, such as a specific screen width or orientation.", difficulty: "easy" },
+    { id: 94, domain: "css", topic: "Advanced", question: "What is z-index?", answer: "Specifies the stack order of an element. An element with greater stack order is always in front of an element with a lower stack order.", difficulty: "medium" },
+    { id: 95, domain: "css", topic: "Advanced", question: "What is 'box-sizing: border-box'?", answer: "Tells the browser to include padding and border in the element's total width and height, making layout math much easier.", difficulty: "medium" },
+    { id: 96, domain: "css", topic: "Advanced", question: "What is a CSS Preprocessor (Sass/Less)?", answer: "A tool that extends CSS with variables, nested rules, and functions, which then compiles back into standard CSS.", difficulty: "medium" },
 
-    // BACKEND
+    // --- DATABASE ---
+    { id: 19, domain: "database", topic: "Core", question: "What is a primary key?", answer: "A unique column that identifies each row in a table. It cannot be null and must contain unique values.", difficulty: "easy" },
+    { id: 20, domain: "database", topic: "Optimization", question: "What is indexing?", answer: "A data structure technique used to quickly locate and access data in a database without searching every row.", difficulty: "medium" },
+    { id: 97, domain: "database", topic: "Core", question: "What are ACID properties?", answer: "Atomicity, Consistency, Isolation, and Durability. A set of properties that guarantee database transactions are processed reliably.", difficulty: "hard" },
+    { id: 98, domain: "database", topic: "Core", question: "What is a Foreign Key?", answer: "A column that creates a link between two tables by referencing the primary key of another table.", difficulty: "easy" },
+    { id: 99, domain: "database", topic: "Core", question: "What is Normalization?", answer: "The process of organizing data to reduce redundancy and improve data integrity by dividing tables into smaller related ones.", difficulty: "medium" },
+    { id: 100, domain: "database", topic: "Advanced", question: "What is a Database Join?", answer: "An operation used to combine rows from two or more tables based on a related column between them (Inner, Left, Right, Full).", difficulty: "medium" },
+    { id: 101, domain: "database", topic: "Advanced", question: "What is a Stored Procedure?", answer: "A prepared SQL code that you can save and reuse, allowing you to pass parameters and execute complex logic on the server.", difficulty: "hard" },
+    { id: 102, domain: "database", topic: "NoSQL", question: "What is Sharding?", answer: "A type of database partitioning that separates very large databases into smaller, faster, more easily managed parts called data shards.", difficulty: "hard" },
+    { id: 103, domain: "database", topic: "Advanced", question: "What is a View in SQL?", answer: "A virtual table based on the result-set of an SQL statement, allowing users to simplify complex queries.", difficulty: "medium" },
+    { id: 104, domain: "database", topic: "Core", question: "Difference between DELETE and TRUNCATE?", answer: "DELETE removes rows one by one and can be rolled back; TRUNCATE removes all rows by deallocating pages and cannot be rolled back easily.", difficulty: "medium" },
 
-    {
-        id: 9,
-        domain: "backend",
-        question: "What is REST API?",
-        answer: "An architectural style for designing networked applications.",
-        difficulty: "easy"
-    },
-    {
-        id: 10,
-        domain: "backend",
-        question: "What is authentication vs authorization?",
-        answer: "Authentication verifies identity; authorization verifies permissions.",
-        difficulty: "medium"
-    },
+    // --- CLOUD ---
+    { id: 21, domain: "cloud", topic: "Basics", question: "What is cloud computing?", answer: "The on-demand delivery of IT resources (servers, storage, databases) over the internet with pay-as-you-go pricing.", difficulty: "easy" },
+    { id: 22, domain: "cloud", topic: "Models", question: "Difference between IaaS, PaaS, SaaS?", answer: "IaaS gives hardware control; PaaS gives a platform for apps; SaaS provides a ready-to-use software over the web.", difficulty: "medium" },
+    { id: 105, domain: "cloud", topic: "Models", question: "Public vs Private vs Hybrid Cloud?", answer: "Public is shared internet services; Private is dedicated to one org; Hybrid is a mix of both connected by technology.", difficulty: "easy" },
+    { id: 106, domain: "cloud", topic: "Architecture", question: "What is Serverless Computing?", answer: "A model where the cloud provider manages the server infrastructure automatically, so developers only focus on writing code (e.g., AWS Lambda).", difficulty: "medium" },
+    { id: 107, domain: "cloud", topic: "Scaling", question: "What is Auto-scaling?", answer: "A service that automatically adjusts the number of active computing resources based on actual load to maintain performance and reduce cost.", difficulty: "medium" },
+    { id: 108, domain: "cloud", topic: "Containerization", question: "What is Kubernetes?", answer: "An open-source system for automating deployment, scaling, and management of containerized applications.", difficulty: "hard" },
+    { id: 109, domain: "cloud", topic: "Security", question: "What is a VPC (Virtual Private Cloud)?", answer: "A private, isolated section of a public cloud where you can launch resources in a virtual network that you define.", difficulty: "medium" },
+    { id: 110, domain: "cloud", topic: "Architecture", question: "What is Content Delivery Network (CDN)?", answer: "A network of geographically distributed servers that work together to provide fast delivery of internet content.", difficulty: "medium" },
+    { id: 111, domain: "cloud", topic: "Reliability", question: "What is High Availability (HA)?", answer: "A system design that ensures a prearranged level of operational performance (usually uptime) for a higher than normal period.", difficulty: "hard" },
+    { id: 112, domain: "cloud", topic: "Architecture", question: "What is 'Infrastructure as Code' (IaC)?", answer: "The process of managing and provisioning computer data centers through machine-readable definition files, rather than physical hardware configuration (e.g., Terraform).", difficulty: "hard" },
 
-    // NODE
-
-    {
-        id: 11,
-        domain: "node",
-        question: "What is Node.js?",
-        answer: "A JavaScript runtime built on Chrome’s V8 engine.",
-        difficulty: "easy"
-    },
-    {
-        id: 12,
-        domain: "node",
-        question: "What is event loop?",
-        answer: "Handles asynchronous operations in Node.js.",
-        difficulty: "medium"
-    },
-
-    // JAVASCRIPT
-
-    {
-        id: 13,
-        domain: "javascript",
-        question: "What is hoisting?",
-        answer: "JavaScript behavior where variables/functions are moved to top of scope.",
-        difficulty: "medium"
-    },
-    {
-        id: 14,
-        domain: "javascript",
-        question: "What is async/await?",
-        answer: "Syntax to handle promises in a cleaner way.",
-        difficulty: "easy"
-    },
-
-    // HTML
-
-    {
-        id: 15,
-        domain: "html",
-        question: "What are semantic tags?",
-        answer: "Tags that describe meaning like header, footer, article.",
-        difficulty: "easy"
-    },
-    {
-        id: 16,
-        domain: "html",
-        question: "Difference between div and span?",
-        answer: "Div is block-level, span is inline.",
-        difficulty: "easy"
-    },
-
-    // CSS
-
-    {
-        id: 17,
-        domain: "css",
-        question: "What is Flexbox?",
-        answer: "A layout model for designing flexible layouts.",
-        difficulty: "easy"
-    },
-    {
-        id: 18,
-        domain: "css",
-        question: "Difference between class and id?",
-        answer: "Class can be reused; id is unique.",
-        difficulty: "easy"
-    },
-
-    // DATABASE
-
-    {
-        id: 19,
-        domain: "database",
-        question: "What is primary key?",
-        answer: "A unique identifier for records in a table.",
-        difficulty: "easy"
-    },
-    {
-        id: 20,
-        domain: "database",
-        question: "What is indexing?",
-        answer: "Improves speed of data retrieval.",
-        difficulty: "medium"
-    },
-
-    // CLOUD
-
-    {
-        id: 21,
-        domain: "cloud",
-        question: "What is cloud computing?",
-        answer: "Delivery of computing services over the internet.",
-        difficulty: "easy"
-    },
-    {
-        id: 22,
-        domain: "cloud",
-        question: "Difference between IaaS, PaaS, SaaS?",
-        answer: "Infrastructure, Platform, and Software as services.",
-        difficulty: "medium"
-    },
-
-    // MOBILE
-
-    {
-        id: 23,
-        domain: "mobile",
-        question: "What is mobile-first design?",
-        answer: "Designing apps for mobile before desktop.",
-        difficulty: "easy"
-    },
-    {
-        id: 24,
-        domain: "mobile",
-        question: "What is React Native?",
-        answer: "Framework for building mobile apps using JavaScript.",
-        difficulty: "easy"
-    },
+    // --- MOBILE ---
+    { id: 23, domain: "mobile", topic: "Design", question: "What is mobile-first design?", answer: "The practice of designing the mobile version of a website first before expanding to tablet and desktop versions.", difficulty: "easy" },
+    { id: 24, domain: "mobile", topic: "Framework", question: "What is React Native?", answer: "A framework that allows you to build native mobile apps for iOS and Android using JavaScript and React.", difficulty: "easy" },
+    { id: 113, domain: "mobile", topic: "Framework", question: "What is Flutter?", answer: "Google's UI toolkit for building natively compiled applications for mobile, web, and desktop from a single codebase using Dart.", difficulty: "medium" },
+    { id: 114, domain: "mobile", topic: "Core", question: "Native vs Hybrid vs PWA?", answer: "Native is built for specific OS; Hybrid is web code in a native container; PWA is a website that behaves like an app.", difficulty: "medium" },
+    { id: 115, domain: "mobile", topic: "Advanced", question: "What is a 'WebView'?", answer: "A component that allows you to display web content (HTML/CSS/JS) inside a native mobile application.", difficulty: "easy" },
+    { id: 116, domain: "mobile", topic: "Performance", question: "What is 'App Thinning' in iOS?", answer: "A technology that ensures an app's installation package contains only the assets needed for the specific device downloading it.", difficulty: "hard" },
+    { id: 117, domain: "mobile", topic: "Advanced", question: "What are Deep Links?", answer: "URLs that lead users directly to a specific piece of content within an app, rather than just launching the app.", difficulty: "medium" },
+    { id: 118, domain: "mobile", topic: "Security", question: "What is Biometric Authentication?", answer: "Using physical characteristics like fingerprints or facial recognition (FaceID/TouchID) to verify a user's identity.", difficulty: "easy" },
+    { id: 119, domain: "mobile", topic: "Advanced", question: "What is 'State Management' in Mobile?", answer: "The process of managing the data that the UI displays, using tools like Redux (React Native), Provider (Flutter), or ViewModel (Android).", difficulty: "medium" },
+    { id: 120, domain: "mobile", topic: "Publishing", question: "Difference between APK and IPA?", answer: "APK is the package file format for Android apps; IPA is the package file format for iOS apps.", difficulty: "easy" },
 ];
 
 export default technicalQuestions;

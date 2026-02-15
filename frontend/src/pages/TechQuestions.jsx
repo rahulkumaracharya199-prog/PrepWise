@@ -1,58 +1,122 @@
 import { useState } from "react";
 import { Navigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import { FiBookOpen, FiChevronDown, FiInfo, FiCheckCircle } from "react-icons/fi";
 import technicalQuestions from "../data/technicalQuestions";
 
 export default function TechQuestions({ domain }) {
     const [openId, setOpenId] = useState(null);
 
-    if (!domain) {
-        return <Navigate to="/dashboard" replace />;
-    }
+    if (!domain) return <Navigate to="/dashboard" replace />;
 
     const filtered = technicalQuestions.filter(q => q.domain === domain);
 
     return (
-        <div>
-            {/* Header */}
-            <div className="mb-8">
-                <h1 className="text-3xl font-bold capitalize text-gray-900">
-                    {domain} Technical Questions
-                </h1>
-                <p className="text-gray-500 mt-1">
-                    Core technical concepts for interviews
-                </p>
-            </div>
+        <div className="max-w-4xl mx-auto">
+            {/* --- Header Section --- */}
+            <header className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
+                <div>
+                    <div className="flex items-center gap-3 mb-4">
+                        <div className="w-12 h-12 bg-indigo-600 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-indigo-100">
+                            <FiBookOpen size={24} />
+                        </div>
+                        <div>
+                            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-indigo-600">Technical Foundation</span>
+                            <h1 className="text-3xl font-black text-gray-900 capitalize tracking-tight">
+                                {domain} <span className="text-indigo-600">Concepts</span>
+                            </h1>
+                        </div>
+                    </div>
+                    <p className="text-gray-500 font-medium">
+                        Master the theoretical core and architectural patterns.
+                    </p>
+                </div>
 
-            {/* Questions */}
+                {/* Quick Progress Stats */}
+                <div className="bg-white border border-gray-100 p-4 rounded-2xl flex items-center gap-4 shadow-sm">
+                    <div className="text-right">
+                        <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Available</p>
+                        <p className="text-xl font-black text-indigo-600">{filtered.length} Questions</p>
+                    </div>
+                    <div className="w-12 h-12 rounded-full border-4 border-indigo-50 flex items-center justify-center text-indigo-600 font-bold text-xs">
+                        {filtered.length > 0 ? "0%" : "-"}
+                    </div>
+                </div>
+            </header>
+
+            {/* --- Questions List --- */}
             {filtered.length === 0 ? (
-                <p className="text-gray-500">
-                    No technical questions available for this domain yet.
-                </p>
+                <div className="py-20 text-center bg-white rounded-[2rem] border-2 border-dashed border-gray-100">
+                    <p className="text-gray-400 font-bold text-lg">Theoretical questions for {domain} are coming soon.</p>
+                </div>
             ) : (
                 <div className="space-y-4">
                     {filtered.map((q, index) => (
-                        <div
+                        <motion.div
+                            layout
                             key={q.id}
-                            className="bg-white border rounded-2xl p-5 shadow-sm hover:shadow-md transition"
+                            className={`bg-white rounded-[2rem] border-2 transition-all duration-300 ${
+                                openId === q.id ? "border-indigo-600 shadow-xl shadow-indigo-500/5" : "border-gray-100"
+                            }`}
                         >
                             {/* Question Header */}
                             <button
                                 onClick={() => setOpenId(openId === q.id ? null : q.id)}
-                                className="w-full flex justify-between items-center text-left focus:outline-none"
+                                className="w-full p-6 sm:p-8 flex justify-between items-start text-left gap-4"
                             >
-                                <p className="font-semibold text-lg text-gray-900">
-                                    {index + 1}. {q.question}
-                                </p>
-                                <DifficultyBadge level={q.difficulty} />
+                                <div className="flex gap-4">
+                                    <span className="mt-1 flex-shrink-0 w-6 h-6 rounded-md bg-indigo-50 text-indigo-600 flex items-center justify-center text-[10px] font-black border border-indigo-100">
+                                        {index + 1}
+                                    </span>
+                                    <div>
+                                        <h3 className={`text-lg font-black tracking-tight leading-snug transition-colors ${openId === q.id ? "text-indigo-600" : "text-gray-900"}`}>
+                                            {q.question}
+                                        </h3>
+                                        <div className="flex items-center gap-2 mt-3">
+                                            <DifficultyBadge level={q.difficulty} />
+                                            {q.topic && (
+                                                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest bg-gray-50 px-2 py-1 rounded">
+                                                    #{q.topic}
+                                                </span>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+                                <FiChevronDown className={`mt-2 text-gray-400 transition-transform duration-300 ${openId === q.id ? "rotate-180 text-indigo-600" : ""}`} />
                             </button>
 
-                            {/* Answer */}
-                            {openId === q.id && (
-                                <p className="text-gray-600 mt-4 leading-relaxed">
-                                    {q.answer}
-                                </p>
-                            )}
-                        </div>
+                            {/* Answer Section */}
+                            <AnimatePresence>
+                                {openId === q.id && (
+                                    <motion.div
+                                        initial={{ height: 0, opacity: 0 }}
+                                        animate={{ height: "auto", opacity: 1 }}
+                                        exit={{ height: 0, opacity: 0 }}
+                                        className="overflow-hidden"
+                                    >
+                                        <div className="px-6 pb-8 sm:px-10 sm:pb-10">
+                                            <div className="relative p-6 bg-slate-50 rounded-3xl border border-slate-100">
+                                                <div className="flex items-center gap-2 text-indigo-600 mb-4 font-black text-[10px] uppercase tracking-[0.2em]">
+                                                    <FiCheckCircle size={14} /> Comprehensive Explanation
+                                                </div>
+                                                <p className="text-gray-700 leading-relaxed font-medium">
+                                                    {q.answer}
+                                                </p>
+                                                
+                                                {/* Interviewer Tip */}
+                                                <div className="mt-8 flex items-start gap-3 p-4 bg-white rounded-2xl border border-indigo-100 shadow-sm">
+                                                    <FiInfo className="text-indigo-500 mt-1 shrink-0" />
+                                                    <p className="text-xs text-slate-500 leading-relaxed">
+                                                        <span className="font-black text-slate-900 uppercase tracking-tighter mr-1">Key Takeaway:</span> 
+                                                        Focus on mentioning how this affects performance and scalability in real-world applications.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        </motion.div>
                     ))}
                 </div>
             )}
@@ -60,19 +124,16 @@ export default function TechQuestions({ domain }) {
     );
 }
 
-/* 🔹 Difficulty Badge */
 function DifficultyBadge({ level }) {
-    const colors = {
-        easy: "bg-green-100 text-green-700",
-        medium: "bg-yellow-100 text-yellow-700",
-        hard: "bg-red-100 text-red-700",
+    const levels = {
+        easy: "text-emerald-600 bg-emerald-50 border-emerald-100",
+        medium: "text-amber-600 bg-amber-50 border-amber-100",
+        hard: "text-rose-600 bg-rose-50 border-rose-100",
     };
 
     return (
-        <span
-            className={`text-xs font-semibold px-3 py-1 rounded-full ${colors[level]}`}
-        >
-            {level.toUpperCase()}
+        <span className={`text-[10px] font-black uppercase tracking-widest px-2 py-1 rounded-md border ${levels[level.toLowerCase()]}`}>
+            {level}
         </span>
     );
 }

@@ -1,8 +1,11 @@
 import { NavLink } from "react-router-dom";
-import { FiHome, FiUser, FiUsers, FiCpu, FiCode, FiBookmark, FiTrendingUp, FiLogOut, FiX } from "react-icons/fi";
+import { motion } from "framer-motion";
+import { 
+    FiHome, FiUser, FiUsers, FiCpu, FiCode, 
+    FiBookmark, FiTrendingUp, FiLogOut, FiX, FiZap 
+} from "react-icons/fi";
 
 /* ===================== MENU DATA ===================== */
-
 const menu = [
     { label: "Dashboard", to: "/dashboard", icon: FiHome },
     { label: "Profile", to: "/profile", icon: FiUser },
@@ -10,24 +13,20 @@ const menu = [
 
 const prep = [
     { label: "HR Questions", to: "/hr", icon: FiUsers },
-    { label: "Technical Questions", to: "/tech", icon: FiCpu },
-    { label: "Coding Questions", to: "/coding", icon: FiCode },
+    { label: "Technical Mastery", to: "/tech", icon: FiCpu },
+    { label: "Coding Lab", to: "/coding", icon: FiCode },
 ];
 
 const personal = [
     { label: "Bookmarks", to: "/bookmarks", icon: FiBookmark },
-    { label: "Progress", to: "/progress", icon: FiTrendingUp },
+    { label: "My Progress", to: "/progress", icon: FiTrendingUp },
 ];
 
 /* ===================== SIDEBAR ===================== */
-
 export default function Sidebar({ open, setOpen }) {
-    const baseLink =
-        "group relative flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all";
-
-    const activeLink = "bg-indigo-600 text-white shadow-md";
-    const inactiveLink =
-        "text-gray-600 hover:bg-indigo-50 hover:text-indigo-600";
+    const baseLink = "relative flex items-center gap-3 px-4 py-3 rounded-xl text-[13px] font-bold transition-all duration-200 group";
+    const activeLink = "bg-indigo-600 text-white shadow-lg shadow-indigo-100";
+    const inactiveLink = "text-gray-500 hover:text-indigo-600 hover:bg-white";
 
     return (
         <>
@@ -35,66 +34,66 @@ export default function Sidebar({ open, setOpen }) {
             {open && (
                 <div
                     onClick={() => setOpen(false)}
-                    className="fixed inset-0 bg-black/40 z-40 md:hidden"
+                    className="fixed inset-0 bg-gray-900/40 backdrop-blur-sm z-40 md:hidden"
                 />
             )}
 
-            {/* Sidebar */}
             <aside
-                className={`fixed md:static top-0 left-0 z-50 w-64 min-h-screen bg-gray-50 border-r px-4 py-6 flex flex-col
+                className={`fixed md:sticky top-0 left-0 z-50 w-72 h-screen bg-[#F8FAFC] border-r border-gray-200/60 px-6 py-8 flex flex-col
                     transform transition-transform duration-300 ${open ? "translate-x-0" : "-translate-x-full"} md:translate-x-0 `}
             >
-                {/* Mobile Header */}
-                <div className="flex items-center justify-between md:hidden mb-6">
-                    <h1 className="text-xl font-bold text-indigo-600">PrepWise</h1>
-                    <button onClick={() => setOpen(false)}>
-                        <FiX className="text-2xl text-gray-700" />
+                {/* Brand Logo */}
+                <div className="flex items-center justify-between mb-10">
+                    <div className="flex items-center gap-2.5">
+                        <div className="w-9 h-9 bg-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-200">
+                            <FiZap className="text-white text-xl fill-current" />
+                        </div>
+                        <h1 className="text-xl font-black text-gray-900 tracking-tight">
+                            Prep<span className="text-indigo-600">Wise</span>
+                        </h1>
+                    </div>
+                    <button onClick={() => setOpen(false)} className="md:hidden p-2 hover:bg-gray-200 rounded-lg">
+                        <FiX className="text-xl text-gray-600" />
                     </button>
                 </div>
 
-                {/* Desktop Logo */}
-                <div className="hidden md:block mb-10 px-2">
-                    <h1 className="text-2xl font-extrabold text-indigo-600">
-                        Prep<span className="text-gray-900">Wise</span>
-                    </h1>
-                    <p className="text-xs text-gray-400 mt-1">
-                        Interview Preparation
-                    </p>
-                </div>
+                {/* Navigation Scroll Area */}
+                <nav className="flex-1 space-y-7">
+                    <div>
+                        <SectionTitle title="Main Menu" />
+                        <NavSection items={menu} baseLink={baseLink} activeLink={activeLink} inactiveLink={inactiveLink} />
+                    </div>
 
-                {/* Navigation */}
-                <nav className="flex-1 space-y-3">
-                    <NavSection
-                        items={menu}
-                        baseLink={baseLink}
-                        activeLink={activeLink}
-                        inactiveLink={inactiveLink}
-                    />
+                    <div>
+                        <SectionTitle title="Preparation" />
+                        <NavSection items={prep} baseLink={baseLink} activeLink={activeLink} inactiveLink={inactiveLink} />
+                    </div>
 
-                    <Section title="Preparation" />
-
-                    <NavSection
-                        items={prep}
-                        baseLink={baseLink}
-                        activeLink={activeLink}
-                        inactiveLink={inactiveLink}
-                    />
-
-                    <Section title="Personal" />
-
-                    <NavSection
-                        items={personal}
-                        baseLink={baseLink}
-                        activeLink={activeLink}
-                        inactiveLink={inactiveLink}
-                    />
+                    <div>
+                        <SectionTitle title="Personal" />
+                        <NavSection items={personal} baseLink={baseLink} activeLink={activeLink} inactiveLink={inactiveLink} />
+                    </div>
                 </nav>
 
-                {/* Logout */}
-                <button className="mt-6 flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-red-600 hover:bg-red-50 transition">
-                    <FiLogOut className="text-lg" />
-                    Logout
-                </button>
+                {/* Bottom Section: Profile & Logout */}
+                <div className="mt-auto pt-6 border-t border-gray-200">
+                    <div className="flex items-center gap-3 px-2 mb-6">
+                        <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-indigo-500 to-violet-500 p-[2px]">
+                            <div className="w-full h-full rounded-full bg-white flex items-center justify-center overflow-hidden">
+                                <img src="https://ui-avatars.com/api/?name=Rahul+Kumar&background=random" alt="User" />
+                            </div>
+                        </div>
+                        <div className="flex flex-col">
+                            <span className="text-sm font-black text-gray-900 leading-tight">Rahul Kumar</span>
+                            <span className="text-[11px] font-bold text-gray-400">Pro Member</span>
+                        </div>
+                    </div>
+
+                    <button className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold text-red-500 hover:bg-red-50 transition-colors">
+                        <FiLogOut className="text-lg" />
+                        Sign Out
+                    </button>
+                </div>
             </aside>
         </>
     );
@@ -103,30 +102,38 @@ export default function Sidebar({ open, setOpen }) {
 /* ===================== HELPERS ===================== */
 
 function NavSection({ items, baseLink, activeLink, inactiveLink }) {
-    return items.map(({ label, to, icon: Icon }) => (
-        <NavLink
-            key={to}
-            to={to}
-            className={({ isActive }) =>
-                `${baseLink} ${isActive ? activeLink : inactiveLink}`
-            }
-        >
-            {({ isActive }) => (
-                <>
-                    {isActive && (
-                        <span className="absolute left-0 top-1/2 h-6 w-1 -translate-y-1/2 rounded-r bg-white" />
+    return (
+        <div className="space-y-1">
+            {items.map(({ label, to, icon: Icon }) => (
+                <NavLink
+                    key={to}
+                    to={to}
+                    className={({ isActive }) =>
+                        `${baseLink} ${isActive ? activeLink : inactiveLink}`
+                    }
+                >
+                    {({ isActive }) => (
+                        <>
+                            <Icon className={`text-lg ${isActive ? "text-white" : "text-gray-400 group-hover:text-indigo-600"}`} />
+                            {label}
+                            {isActive && (
+                                <motion.div 
+                                    layoutId="activePill"
+                                    className="absolute inset-0 bg-indigo-600 rounded-xl -z-10"
+                                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                                />
+                            )}
+                        </>
                     )}
-                    <Icon className="text-lg" />
-                    {label}
-                </>
-            )}
-        </NavLink>
-    ));
+                </NavLink>
+            ))}
+        </div>
+    );
 }
 
-function Section({ title }) {
+function SectionTitle({ title }) {
     return (
-        <p className="mt-6 mb-2 px-2 text-xs font-semibold text-gray-400 uppercase">
+        <p className="px-4 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-3">
             {title}
         </p>
     );
